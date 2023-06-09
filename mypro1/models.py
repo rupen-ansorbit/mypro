@@ -4,13 +4,14 @@ import json
 from django.utils import timezone
 
 class User(models.Model):
-    name = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=100 , unique=True)
+    password = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return json.dumps({"name": self.name, "email": self.email, "created_at": self.created_at, "updated_at": self.updated_at})
+        return json.dumps({"username": self.username, "email": self.email,"password": self.password, "created_at": self.created_at, "updated_at": self.updated_at})
 
 class Task(models.Model):
     user = models.CharField(max_length=50)
